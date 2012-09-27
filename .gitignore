@@ -1,6 +1,12 @@
-# Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
-bin
-obj
+*resharper.user
 
-# mstest test results
-TestResults
+# Visual Studio
+[Dd]ebug/
+[Rr]elease/
+*.sln.cache
+*.suo
+*.csproj.user
+ 
+# Resharper
+*[Rr]e[Ss]harper.user
+_ReSharper.*/
