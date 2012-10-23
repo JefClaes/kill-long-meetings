@@ -10,7 +10,7 @@ namespace MeetingCostTicker
     {
         public RootModule()
         {
-            Get["/"] = p => "Hello World";
+            Get["/"] = p => View["HomeView"];
         }
     }
 }
