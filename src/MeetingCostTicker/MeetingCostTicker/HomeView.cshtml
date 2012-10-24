@@ -76,6 +76,7 @@
 	        </fieldset>
 	        </form>
             <input type="text" class="input-xlarge" id="input01" data-bind="value: totalCost">
+            <input type="text" class="input-xlarge" id="input01" data-bind="value: secondsSinceStart">
         </div>
     </div>
 
@@ -105,17 +106,22 @@
 	        this.averageSalary = ko.observable("50"),
 				this.costs = ko.observable("20"),
 				this.totalCost = ko.observable("");
-	            this.secondsSinceStart = 0,
+	            this.secondsSinceStart = ko.observable(0),
 
 				this.calculateTotalCost = function () {
-				    var totalCost = (self.secondsSinceStart * (parseInt(self.averageSalary()) / 3600)) + parseInt(self.costs());
+				    var costs = parseInt(self.costs());
+				    var saleryCosts = (self.secondsSinceStart() * (parseInt(self.averageSalary()) / 3600));
+				    var totalCost = saleryCosts + costs;
+
 				    self.totalCost(totalCost);
 				},
 
 				this.start = function () {
 				    setInterval(function () {
 				        self.calculateTotalCost();
-				        self.secondsSinceStart = self.secondsSinceStart + 1;
+				        self.secondsSinceStart(self.secondsSinceStart() + 1);
+
+				        console.log(self.secondsSinceStart);
 				    }, 1000);
 				}
 	    }
