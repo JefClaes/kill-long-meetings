@@ -1,4 +1,4 @@
-
+﻿
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -55,22 +55,27 @@
         <div class="span12">
 
 	        <form class="form-horizontal well">
-	        <fieldset>               
+	        <fieldset>       
+                    
 		        <div class="control-group">
-		        <label class="control-label" for="input01">Average salery (/hour)</label>
-		        <div class="controls">
-			        <input type="text" class="input-medium" id="input01" data-bind="value: averageSalary" placeholder="">			            
-                    <p class="help-inline">In addition to freeform text, any HTML5 text-based input appears like so.</p>
+		            <label class="control-label" for="input01">Average salery (/hour)</label>
+		            <div class="controls">
+			            <input type="text" class="input-medium" id="input01" data-bind="value: averageSalary" placeholder="">			            
+                        <p class="help-inline">In addition to freeform text, any HTML5 text-based input appears like so.</p>
+		            </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="input01">Costs</label>
+		            <div class="controls">
+			            <input type="text" class="input-medium" id="input01" data-bind="value: costs" placeholder="">			            
+                        <p class="help-inline">In addition to freeform text, any HTML5 text-based input appears like so.</p>
+		            </div>
 		        </div>
-                <label class="control-label" for="input01">Costs</label>
-		        <div class="controls">
-			        <input type="text" class="input-medium" id="input01" data-bind="value: costs" placeholder="">			            
-                    <p class="help-inline">In addition to freeform text, any HTML5 text-based input appears like so.</p>
-		        </div>
-		        </div>		          
+                		          
 		        <div class="jumbotron">
 		            <button type="submit" class="btn btn-primary" data-bind="click: start">Start counting</button>			
                 </div>		                            
+
 	        </fieldset>
 	        </form>
             
