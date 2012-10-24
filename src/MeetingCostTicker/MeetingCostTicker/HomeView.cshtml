@@ -59,23 +59,23 @@
 		        <div class="control-group">
 		        <label class="control-label" for="input01">Average salery (/hour)</label>
 		        <div class="controls">
-			        <input type="text" class="input-xlarge" id="input01">
+			        <input type="text" class="input-xlarge" id="input01" data-bind="value: averageSalary">
 			        <p class="help-block">In addition to freeform text, any HTML5 text-based input appears like so.</p>
 		        </div>
 		        </div>
 		        <div class="control-group">
 		        <label class="control-label" for="input01">Costs</label>
 		        <div class="controls">
-			        <input type="text" class="input-xlarge" id="input01">
+			        <input type="text" class="input-xlarge" id="input01" data-bind="value: costs">
 			        <p class="help-block">In addition to freeform text, any HTML5 text-based input appears like so.</p>
 		        </div>
 		        </div>		  
 		        <div class="form-actions">
-		        <button type="submit" class="btn btn-primary">Start counting</button>			
+		        <button type="submit" class="btn btn-primary" data-bind="click: start">Start counting</button>			
 		        </div>
 	        </fieldset>
 	        </form>
-
+            <input type="text" class="input-xlarge" id="input01" data-bind="value: totalCost">
         </div>
     </div>
 
@@ -94,10 +94,37 @@
 	<!-- Le javascript
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="Content/scripts/jquery.min.js"></script>
-	<script src="Content/scripts/bootstrap.min.js"></script>
-    <script src="Content/scripts/knockout-2.1.0.js"></script>
-	
+	<script src="Content/scripts/jquery.min.js" type="text/javascript"></script>
+	<script src="Content/scripts/bootstrap.min.js" type="text/javascript"></script>
+    <script src="Content/scripts/knockout-2.1.0.js" type="text/javascript"></script>
+	<script type="text/javascript">
+
+	    function ViewModel() {
+	        var self = this;
+
+	        this.averageSalary = ko.observable("50"),
+				this.costs = ko.observable("20"),
+				this.totalCost = ko.observable("");
+	            this.secondsSinceStart = 0,
+
+				this.calculateTotalCost = function () {
+				    var totalCost = (self.secondsSinceStart * (parseInt(self.averageSalary()) / 3600)) + parseInt(self.costs());
+				    self.totalCost(totalCost);
+				},
+
+				this.start = function () {
+				    setInterval(function () {
+				        self.calculateTotalCost();
+				        self.secondsSinceStart = self.secondsSinceStart + 1;
+				    }, 1000);
+				}
+	    }
+
+	    $(function () {
+	        ko.applyBindings(new ViewModel());
+	    });
+
+	</script>
 
   </body>
 </html>
