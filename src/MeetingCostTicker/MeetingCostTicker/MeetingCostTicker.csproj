@@ -72,6 +72,7 @@
     <Content Include="Content\scripts\bootstrap.min.js" />
     <Content Include="Content\scripts\bsa.js" />
     <Content Include="Content\scripts\jquery.min.js" />
+    <Content Include="Content\scripts\knockout-2.1.0.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
