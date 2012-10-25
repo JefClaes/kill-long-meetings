@@ -58,7 +58,7 @@
 	        <fieldset>       
                     
 		        <div class="control-group">
-		            <label class="control-label" for="input01">Average salary (/hour)</label>
+		            <label class="control-label" for="input01">Average salary ($/hour)</label>
 		            <div class="controls">
 			            <input type="text" class="input-medium" id="averageSalary" data-bind="value: averageSalary" placeholder="">			            
                         <p class="help-inline">In addition to freeform text, any HTML5 text-based input appears like so.</p>
@@ -74,7 +74,7 @@
 		        </div>
 
                 <div class="control-group">
-                    <label class="control-label" for="input01">Costs</label>
+                    <label class="control-label" for="input01">Costs ($)</label>
 		            <div class="controls">
 			            <input type="text" class="input-medium" id="costs" data-bind="value: costs" placeholder="">			            
                         <p class="help-inline">In addition to freeform text, any HTML5 text-based input appears like so.</p>
@@ -90,8 +90,8 @@
             
         </div>
 
-        <div class="span12">
-            <span data-bind="text: totalCost"></span>
+        <div class="span12 count">
+            <span data-bind="text: totalCost"></span><br />
             <span data-bind="text: secondsSinceStart"></span>
         </div>
     </div>
@@ -112,14 +112,14 @@
 
 	        this.averageSalary = ko.observable("50");
 			this.costs = ko.observable("20");
-			this.totalCost = ko.observable("");
+			this.totalCost = ko.observable("0$");
 			this.secondsSinceStart = ko.observable(0);
 			this.numberOfPersons = ko.observable(1);
 
 			this.calculateTotalCost = function () {
 			    var costs = parseInt(self.costs());
 			    var saleryCosts = (self.secondsSinceStart() * (parseInt(self.averageSalary()) / 3600)) * parseInt(self.numberOfPersons());
-			    var totalCost = saleryCosts + costs;
+			    var totalCost = Math.round(saleryCosts + costs).toString() + "$";
 
 			    self.totalCost(totalCost);
 			};

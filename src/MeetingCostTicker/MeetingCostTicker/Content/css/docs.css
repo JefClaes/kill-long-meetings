@@ -1,18 +1,8 @@
-﻿/* Add additional stylesheets below
--------------------------------------------------- */
-/*
-  Bootstrap's documentation styles
-  Special styles for presenting Bootstrap's documentation and examples
-*/
-
-
-/* Body and structure
+﻿/* Body and structure
 -------------------------------------------------- */
 body {
   position: relative;
   padding-top: 80px;
-/*  background-color: #fff;
-  background-image: url(../img/grid-18px-masked.png);*/
   background-repeat: repeat-x;
   background-position: 0 40px;
 }
@@ -194,6 +184,12 @@ body .one .bsa_it_p {
 
 }
 
+.count {
+  font-size: 81px;
+  font-weight: bold;
+  letter-spacing: -1px;
+  line-height: 1;
+}
 
 /* Responsive Docs
 -------------------------------------------------- */
@@ -319,3 +315,4 @@ body .one .bsa_it_p {
     width: 1168px; /* 2px less to account for left/right borders being removed when in fixed mode */
   }
 }
+
