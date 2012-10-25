@@ -110,18 +110,19 @@
 	    function ViewModel() {
 	        var self = this;
 
-	        this.averageSalary = ko.observable("50");
-			this.costs = ko.observable("20");
+	        this.averageSalary = ko.observable(50);
+			this.costs = ko.observable(20);
 			this.totalCost = ko.observable(0);
 			this.totalCostFormatted = ko.computed(function () {
 			    return self.totalCost() + "$";
 			});
 			this.secondsSinceStart = ko.observable(0);
+
 			this.numberOfPersons = ko.observable(1);
 
 			this.calculateTotalCost = function () {
 			    var costs = parseInt(self.costs());
-			    var saleryCosts = (self.secondsSinceStart() * (parseInt(self.averageSalary()) / 3600)) * parseInt(self.numberOfPersons());
+			    var saleryCosts = (self.secondsSinceStart() * (self.averageSalary() / 3600)) * self.numberOfPersons();
 			    var totalCost = Math.round(saleryCosts + costs);
 
 			    self.totalCost(totalCost);
