@@ -58,22 +58,31 @@
 	        <fieldset>       
                     
 		        <div class="control-group">
-		            <label class="control-label" for="input01">Average salery (/hour)</label>
+		            <label class="control-label" for="input01">Average salary (/hour)</label>
 		            <div class="controls">
-			            <input type="text" class="input-medium" id="input01" data-bind="value: averageSalary" placeholder="">			            
+			            <input type="text" class="input-medium" id="averageSalary" data-bind="value: averageSalary" placeholder="">			            
                         <p class="help-inline">In addition to freeform text, any HTML5 text-based input appears like so.</p>
 		            </div>
                 </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="input01">Number of persons</label>
+		            <div class="controls">
+			            <input type="text" class="input-medium" id="numberOfPersons" data-bind="value: numberOfPersons" placeholder="">			            
+                        <p class="help-inline">In addition to freeform text, any HTML5 text-based input appears like so.</p>
+		            </div>
+		        </div>
+
                 <div class="control-group">
                     <label class="control-label" for="input01">Costs</label>
 		            <div class="controls">
-			            <input type="text" class="input-medium" id="input01" data-bind="value: costs" placeholder="">			            
+			            <input type="text" class="input-medium" id="costs" data-bind="value: costs" placeholder="">			            
                         <p class="help-inline">In addition to freeform text, any HTML5 text-based input appears like so.</p>
 		            </div>
 		        </div>
                 		          
 		        <div class="jumbotron">
-		            <button type="submit" class="btn btn-primary" data-bind="click: start">Start counting</button>			
+		            <button type="button" class="btn btn-primary" data-bind="click: start">Start counting</button>			
                 </div>		                            
 
 	        </fieldset>
@@ -82,8 +91,8 @@
         </div>
 
         <div class="span12">
-            <input type="text" class="input-xlarge" id="input01" data-bind="value: totalCost">
-            <input type="text" class="input-xlarge" id="input01" data-bind="value: secondsSinceStart">
+            <span data-bind="text: totalCost"></span>
+            <span data-bind="text: secondsSinceStart"></span>
         </div>
     </div>
 
@@ -101,28 +110,29 @@
 	    function ViewModel() {
 	        var self = this;
 
-	        this.averageSalary = ko.observable("50"),
-			this.costs = ko.observable("20"),
+	        this.averageSalary = ko.observable("50");
+			this.costs = ko.observable("20");
 			this.totalCost = ko.observable("");
-	        this.secondsSinceStart = ko.observable(0),
+			this.secondsSinceStart = ko.observable(0);
+			this.numberOfPersons = ko.observable(1);
 
-			this.calculateTotalCost = function () {	  
+			this.calculateTotalCost = function () {
 			    var costs = parseInt(self.costs());
-			    var saleryCosts = (self.secondsSinceStart() * (parseInt(self.averageSalary()) / 3600));
+			    var saleryCosts = (self.secondsSinceStart() * (parseInt(self.averageSalary()) / 3600)) * parseInt(self.numberOfPersons());
 			    var totalCost = saleryCosts + costs;
 
 			    self.totalCost(totalCost);
-			},
+			};
 
 			this.start = function () {
 			    setInterval(function () {
 			        self.calculateTotalCost();
-			        self.secondsSinceStart(self.secondsSinceStart() + 1);			        
+			        self.secondsSinceStart(self.secondsSinceStart() + 1);
 			    }, 1000);
-			}
+			};
 	    }
 
-	    $(function () {
+	    $(function () {	        
 	        ko.applyBindings(new ViewModel());
 	    });
 
