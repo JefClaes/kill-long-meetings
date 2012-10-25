@@ -92,7 +92,7 @@
 
         <div class="span12 count">
             <span data-bind="text: totalCostFormatted"></span><br />
-            <span data-bind="text: secondsSinceStart"></span>
+            <span data-bind="text: secondsSinceStartFormatted"></span>
         </div>
     </div>
 
@@ -117,7 +117,9 @@
 			    return self.totalCost() + "$";
 			});
 			this.secondsSinceStart = ko.observable(0);
-
+			this.secondsSinceStartFormatted = ko.computed(function () {
+			    return self.secondsSinceStart() + "s";
+			});
 			this.numberOfPersons = ko.observable(1);
 
 			this.calculateTotalCost = function () {
