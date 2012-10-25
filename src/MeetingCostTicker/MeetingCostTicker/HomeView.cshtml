@@ -118,7 +118,11 @@
 			});
 			this.secondsSinceStart = ko.observable(0);
 			this.secondsSinceStartFormatted = ko.computed(function () {
-			    return self.secondsSinceStart() + "s";
+			    var hours = parseInt(self.secondsSinceStart() / 3600) % 24;
+			    var minutes = parseInt(self.secondsSinceStart() / 60) % 60;
+			    var seconds = self.secondsSinceStart() % 60;
+
+			    return (hours < 10 ? "0" + hours : hours) + "-" + (minutes < 10 ? "0" + minutes : minutes) + "-" + (seconds < 10 ? "0" + seconds : seconds);
 			});
 			this.numberOfPersons = ko.observable(1);
 
