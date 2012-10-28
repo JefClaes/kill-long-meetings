@@ -38,8 +38,11 @@
 
 	<div class="container">
 
-
-    
+    <div class="span12 count">        
+        <span data-bind="text: totalCostFormatted"></span><br />
+        <span data-bind="text: secondsSinceStartFormatted"></span>
+    </div>
+   
     <!--
     <header class="jumbotron subhead" id="overview">
       <div class="row">
@@ -89,11 +92,7 @@
 	        </form>
             
         </div>
-
-        <div class="span12 count">
-            <span data-bind="text: totalCostFormatted"></span><br />
-            <span data-bind="text: secondsSinceStartFormatted"></span>
-        </div>
+       
     </div>
 
 	<footer class="footer">

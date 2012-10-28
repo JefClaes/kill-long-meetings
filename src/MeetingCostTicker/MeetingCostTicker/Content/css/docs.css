@@ -184,12 +184,7 @@ body .one .bsa_it_p {
 
 }
 
-.count {
-  font-size: 81px;
-  font-weight: bold;
-  letter-spacing: -1px;
-  line-height: 1;
-}
+
 
 /* Responsive Docs
 -------------------------------------------------- */
@@ -316,3 +311,11 @@ body .one .bsa_it_p {
   }
 }
 
+.count {
+  font-size: 81px;
+  font-weight: bold;
+  letter-spacing: -1px;
+  line-height: 1;
+  text-align: center;
+  margin-bottom: 15px;
+}
