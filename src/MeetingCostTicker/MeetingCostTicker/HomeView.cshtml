@@ -90,7 +90,8 @@
           
         <div class="row">
 		    <div class="span12 jumbotron">
-		        <button type="button" class="btn btn-primary" data-bind="click: start">Start counting</button>			
+		        <button type="button" class="btn btn-primary" data-bind="click: start, text: actionText">Start</button>			
+                <button type="button" class="btn btn-primary" data-bind="click: reset">Reset</button>			
             </div>
         </div>      		          		                            
 
@@ -113,6 +114,9 @@
 	    function ViewModel() {
 	        var self = this;
 
+	        var startIntervalId = -1;
+	        
+	        this.isStarted = ko.observable(false);
 	        this.averageSalary = ko.observable(50);
 			this.costs = ko.observable(20);
 			this.totalCost = ko.observable(0);
@@ -128,6 +132,7 @@
 			    return (hours < 10 ? "0" + hours : hours) + "-" + (minutes < 10 ? "0" + minutes : minutes) + "-" + (seconds < 10 ? "0" + seconds : seconds);
 			});
 			this.numberOfPersons = ko.observable(1);
+	        this.actionText = ko.observable("Start");
 
 			this.calculateTotalCost = function () {
 			    var costs = parseInt(self.costs());
@@ -138,10 +143,27 @@
 			};
 
 			this.start = function () {
-			    setInterval(function () {
-			        self.calculateTotalCost();
-			        self.secondsSinceStart(self.secondsSinceStart() + 1);
-			    }, 1000);
+			    this.isStarted(!self.isStarted());
+			    this.actionText(this.isStarted() ? "Pause" : "Continue");
+
+			    console.log(startIntervalId);
+
+			    if (startIntervalId === -1) {
+			        startIntervalId = setInterval(function () {
+			            if (self.isStarted()) {
+			                self.calculateTotalCost();
+			                self.secondsSinceStart(self.secondsSinceStart() + 1);
+			            }
+			        }, 1000);
+			    }
+			};
+			this.reset = function () {
+			    clearInterval(startIntervalId);
+			    startIntervalId = -1;
+
+			    this.totalCost(0);
+			    this.secondsSinceStart(0);
+			    this.actionText("Start");
 			};
 	    }
 
