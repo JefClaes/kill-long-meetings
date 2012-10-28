@@ -38,11 +38,12 @@
 
 	<div class="container">
 
-    <div class="span12 count">        
-        <span data-bind="text: totalCostFormatted"></span><br />
-        <span data-bind="text: secondsSinceStartFormatted"></span>
+    <div class="row">
+        <div class="span12 count">        
+            <span data-bind="text: totalCostFormatted"></span><br />
+            <span data-bind="text: secondsSinceStartFormatted"></span>
+        </div>
     </div>
-   
     <!--
     <header class="jumbotron subhead" id="overview">
       <div class="row">
@@ -54,46 +55,49 @@
     </header>
     -->
 
-    <div class="row">
-        <div class="span12">
-
-	        <form class="form-horizontal well">
-	        <fieldset>       
-                    
+    
+	<form class="form-horizontal well">
+	    <fieldset>       
+        
+        <div class="row">
+            <div class="span3">
 		        <div class="control-group">
 		            <label class="control-label" for="input01">Average salary ($/hour)</label>
 		            <div class="controls">
-			            <input type="text" class="input-medium" id="averageSalary" data-bind="value: averageSalary" placeholder="">			            
-                        <p class="help-inline">In addition to freeform text, any HTML5 text-based input appears like so.</p>
+			            <input type="text" class="input-medium" id="averageSalary" data-bind="value: averageSalary" placeholder="">			                                    
 		            </div>
                 </div>
+            </div>
 
+            <div class="span3">
                 <div class="control-group">
-                    <label class="control-label" for="input01">Number of persons</label>
+                    <label class="control-label" for="input01"># of persons</label>
 		            <div class="controls">
-			            <input type="text" class="input-medium" id="numberOfPersons" data-bind="value: numberOfPersons" placeholder="">			            
-                        <p class="help-inline">In addition to freeform text, any HTML5 text-based input appears like so.</p>
+			            <input type="text" class="input-medium" id="numberOfPersons" data-bind="value: numberOfPersons" placeholder="">			                                
 		            </div>
 		        </div>
+            </div>
 
+            <div class="span3">
                 <div class="control-group">
                     <label class="control-label" for="input01">Costs ($)</label>
 		            <div class="controls">
-			            <input type="text" class="input-medium" id="costs" data-bind="value: costs" placeholder="">			            
-                        <p class="help-inline">In addition to freeform text, any HTML5 text-based input appears like so.</p>
+			            <input type="text" class="input-medium" id="costs" data-bind="value: costs" placeholder="">			                                
 		            </div>
 		        </div>
-                		          
-		        <div class="jumbotron">
-		            <button type="button" class="btn btn-primary" data-bind="click: start">Start counting</button>			
-                </div>		                            
+            </div>
+        </div>            
+          
+        <div class="row">
+		    <div class="span12 jumbotron">
+		        <button type="button" class="btn btn-primary" data-bind="click: start">Start counting</button>			
+            </div>
+        </div>      		          		                            
 
-	        </fieldset>
-	        </form>
+	    </fieldset>
+	</form>
             
-        </div>
-       
-    </div>
+      
 
 	<footer class="footer">
 	<p class="pull-right"><a href="#">Back to top</a></p>
