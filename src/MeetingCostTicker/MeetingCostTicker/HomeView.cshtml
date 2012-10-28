@@ -110,19 +110,23 @@
 	<script src="Content/scripts/bootstrap.min.js" type="text/javascript"></script>
     <script src="Content/scripts/knockout-2.1.0.js" type="text/javascript"></script>
 	<script type="text/javascript">
-
+    
 	    function ViewModel() {
 	        var self = this;
 
 	        var startIntervalId = undefined;
-	        
+
 	        this.isStarted = ko.observable(false);
+
 	        this.averageSalary = ko.observable(50);
+	        this.numberOfPersons = ko.observable(1);
 			this.costs = ko.observable(20);
-			this.totalCost = ko.observable(0);
+			
+	        this.totalCost = ko.observable(0);
 			this.totalCostFormatted = ko.computed(function () {
 			    return self.totalCost() + "$";
 			});
+	        
 			this.secondsSinceStart = ko.observable(0);
 			this.secondsSinceStartFormatted = ko.computed(function () {
 			    var hours = parseInt(self.secondsSinceStart() / 3600) % 24;
@@ -131,9 +135,24 @@
 
 			    return (hours < 10 ? "0" + hours : hours) + "-" + (minutes < 10 ? "0" + minutes : minutes) + "-" + (seconds < 10 ? "0" + seconds : seconds);
 			});
-			this.numberOfPersons = ko.observable(1);
 	        this.actionText = ko.observable("Start");
 
+	        this.start = function () {
+	            this.isStarted(!self.isStarted());
+	            this.actionText(this.isStarted() ? "Pause" : "Continue");
+
+	            console.log(startIntervalId);
+
+	            if (!startIntervalId) {
+	                startIntervalId = setInterval(function () {
+	                    if (self.isStarted()) {
+	                        self.calculateTotalCost();
+	                        self.secondsSinceStart(self.secondsSinceStart() + 1);
+	                    }
+	                }, 1000);
+	            }
+	        };
+	        
 			this.calculateTotalCost = function () {
 			    var costs = parseInt(self.costs());
 			    var saleryCosts = (self.secondsSinceStart() * (self.averageSalary() / 3600)) * self.numberOfPersons();
@@ -141,22 +160,7 @@
 
 			    self.totalCost(totalCost);
 			};
-
-			this.start = function () {
-			    this.isStarted(!self.isStarted());
-			    this.actionText(this.isStarted() ? "Pause" : "Continue");
-
-			    console.log(startIntervalId);
-
-			    if (!startIntervalId) {
-			        startIntervalId = setInterval(function () {
-			            if (self.isStarted()) {
-			                self.calculateTotalCost();
-			                self.secondsSinceStart(self.secondsSinceStart() + 1);
-			            }
-			        }, 1000);
-			    }
-			};
+		
 			this.reset = function () {
 			    clearInterval(startIntervalId);
 			    startIntervalId = undefined;
