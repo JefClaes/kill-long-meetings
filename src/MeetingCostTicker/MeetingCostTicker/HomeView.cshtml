@@ -114,7 +114,7 @@
 	    function ViewModel() {
 	        var self = this;
 
-	        var startIntervalId = -1;
+	        var startIntervalId = undefined;
 	        
 	        this.isStarted = ko.observable(false);
 	        this.averageSalary = ko.observable(50);
@@ -148,7 +148,7 @@
 
 			    console.log(startIntervalId);
 
-			    if (startIntervalId === -1) {
+			    if (!startIntervalId) {
 			        startIntervalId = setInterval(function () {
 			            if (self.isStarted()) {
 			                self.calculateTotalCost();
@@ -159,7 +159,7 @@
 			};
 			this.reset = function () {
 			    clearInterval(startIntervalId);
-			    startIntervalId = -1;
+			    startIntervalId = undefined;
 
 			    this.totalCost(0);
 			    this.secondsSinceStart(0);
