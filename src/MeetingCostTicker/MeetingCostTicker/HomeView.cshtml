@@ -60,33 +60,38 @@
 	    <fieldset>       
         
         <div class="row">
-            <div class="span3">
-		        <div class="control-group">
-		            <label class="control-label" for="input01">Average salary ($/hour)</label>
-		            <div class="controls">
-			            <input type="text" class="input-medium" id="averageSalary" data-bind="value: averageSalary" placeholder="">			                                    
-		            </div>
-                </div>
-            </div>
-
-            <div class="span3">
-                <div class="control-group">
-                    <label class="control-label" for="input01"># of persons</label>
-		            <div class="controls">
-			            <input type="text" class="input-medium" id="numberOfPersons" data-bind="value: numberOfPersons" placeholder="">			                                
-		            </div>
+          
+		    <div class="control-group">
+		        <label class="control-label" for="input01">Average salary ($/hour)</label>
+		        <div class="controls">
+			        <input type="text" class="input-small enableTooltip" id="averageSalary" 
+                        data-bind="value: averageSalary" 
+                        data-title="" 
+                        data-placement="right">			                                    
 		        </div>
             </div>
-
-            <div class="span3">
-                <div class="control-group">
-                    <label class="control-label" for="input01">Costs ($)</label>
-		            <div class="controls">
-			            <input type="text" class="input-medium" id="costs" data-bind="value: costs" placeholder="">			                                
-		            </div>
+          
+            <div class="control-group">
+                <label class="control-label" for="input01">Number of persons</label>
+		        <div class="controls">
+			        <input type="text" class="input-small enableTooltip" id="numberOfPersons" 
+                        data-bind="value: numberOfPersons" 
+                        data-title="" 
+                        data-placement="right">			                                
 		        </div>
-            </div>
-        </div>            
+		    </div>
+          
+            <div class="control-group">
+                <label class="control-label" for="input01">Costs ($)</label>
+		        <div class="controls">
+			        <input type="text" class="input-small enableTooltip" id="costs" 
+                        data-bind="value: costs" 
+                        data-title="" 
+                        data-placement="right">			                                 
+		        </div>
+		    </div>        
+           
+         </div>            
           
         <div class="row">
 		    <div class="span12 jumbotron">
@@ -171,7 +176,9 @@
 			};
 	    }
 
-	    $(function () {	        
+	    $(function () {
+	        $(".enableTooltip").tooltip();
+
 	        ko.applyBindings(new ViewModel());
 	    });
 
