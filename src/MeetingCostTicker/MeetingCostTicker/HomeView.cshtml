@@ -129,7 +129,7 @@
 	        this.isStarted = ko.observable(false);
 
 	        this.averageSalary = ko.observable(50);
-	        this.numberOfPersons = ko.observable(1);
+	        this.numberOfPersons = ko.observable(5);
 			this.costs = ko.observable(20);
 			
 	        this.totalCost = ko.observable(0);
@@ -143,8 +143,9 @@
 			    var minutes = parseInt(self.secondsSinceStart() / 60) % 60;
 			    var seconds = self.secondsSinceStart() % 60;
 
-			    return (hours < 10 ? "0" + hours : hours) + "-" + (minutes < 10 ? "0" + minutes : minutes) + "-" + (seconds < 10 ? "0" + seconds : seconds);
+			    return hours + "h " + minutes + "m " + seconds + "s";
 			});
+
 	        this.actionText = ko.observable("Start");
 
 	        this.start = function () {
@@ -153,17 +154,17 @@
 
 	            if (!startIntervalId) {
 	                startIntervalId = setInterval(function () {
-	                    if (self.isStarted()) {
-	                        self.calculateTotalCost();
-	                        self.updateProgress();
+	                    if (self.isStarted()) {	                       
 	                        self.secondsSinceStart(self.secondsSinceStart() + 1);
+                            self.calculateTotalCost();
+	                        self.updateProgress();
 	                    }
 	                }, 1000);
 	            }
 	        };
 
 	        this.updateProgress = function () {
-	            var progress = Math.ceil((this.secondsSinceStart() / 3600) * 10000);
+	            var progress = Math.ceil((this.secondsSinceStart() / 3600) * 100);
 	            var barElem = $("#bar");
 	            var progressClass = "success";
 
@@ -183,7 +184,7 @@
 	            cache.barElem.removeClass("bar-success bar-warning bar-danger");
 	        };
 
-			this.calculateTotalCost = function () {
+            this.calculateTotalCost = function () {
 			    var costs = parseInt(self.costs());
 			    var saleryCosts = (self.secondsSinceStart() * (self.averageSalary() / 3600)) * self.numberOfPersons();
 			    var totalCost = Math.round(saleryCosts + costs);
@@ -200,13 +201,15 @@
 			    this.totalCost(0);
 			    this.secondsSinceStart(0);
 			    this.actionText("Start");
-			};
+			};            
+                     
 	    }
 
 	    $(function () {
 	        $(".enableTooltip").tooltip();
 
-	        ko.applyBindings(new ViewModel());
+	        var model = new ViewModel();
+	        ko.applyBindings(model);	        
 	    });
 
 	</script>
