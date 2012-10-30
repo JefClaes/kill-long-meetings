@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeetingCostTicker", "MeetingCostTicker\MeetingCostTicker.csproj", "{5B2AF26B-E7AC-448F-A5C9-143961DFEF55}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeetingCostTicker", "KillLongMeetings\MeetingCostTicker.csproj", "{5B2AF26B-E7AC-448F-A5C9-143961DFEF55}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
