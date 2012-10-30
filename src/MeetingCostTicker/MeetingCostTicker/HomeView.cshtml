@@ -91,7 +91,17 @@
 		        <div class="controls">
 			        <input type="text" class="input-small enableTooltip" id="costs" 
                         data-bind="value: costs" 
-                        data-title="" 
+                        data-title="F" 
+                        data-placement="right">			                                 
+		        </div>
+		    </div>  
+            
+            <div class="control-group">
+                <label class="control-label" for="input01">Max duration (minutes)</label>
+		        <div class="controls">
+			        <input type="text" class="input-small enableTooltip" id="maxDuration" 
+                        data-bind="value: maximumDuration" 
+                        data-title="F" 
                         data-placement="right">			                                 
 		        </div>
 		    </div>        
@@ -130,7 +140,8 @@
 
 	        this.averageSalary = ko.observable(50);
 	        this.numberOfPersons = ko.observable(5);
-			this.costs = ko.observable(20);
+	        this.costs = ko.observable(0);
+	        this.maximumDuration = ko.observable(60);
 			
 	        this.totalCost = ko.observable(0);
 			this.totalCostFormatted = ko.computed(function () {
@@ -164,7 +175,7 @@
 	        };
 
 	        this.updateProgress = function () {
-	            var progress = Math.ceil((this.secondsSinceStart() / 3600) * 100);
+	            var progress = Math.ceil((this.secondsSinceStart() / (this.maximumDuration() * 60)) * 100);
 	            var barElem = $("#bar");
 	            var progressClass = "success";
 
