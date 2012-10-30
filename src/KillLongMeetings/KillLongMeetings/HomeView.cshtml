@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
 	<meta charset="utf-8">
-	<title>Bootswatch: Superhero</title>
+	<title>Kill long meetings</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="">
 	<meta name="author" content="">
@@ -22,12 +22,7 @@
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
 	        <div class="container">	   
-	            <a class="brand" href="../">Bootswatch</a>
-	            <div class="nav-collapse" id="main-menu">        
-                    <ul class="nav" id="main-menu-left">	            
-	                    <li><a id="swatch-link" href="/#gallery">Gallery</a></li>	            
-                    </ul>                       
-	            </div>
+	            <a class="brand" href="../">Kill long meetings</a>	            
 	        </div>
         </div>
     </div>
@@ -167,14 +162,14 @@
 	                startIntervalId = setInterval(function () {
 	                    if (self.isStarted()) {	                       
 	                        self.secondsSinceStart(self.secondsSinceStart() + 1);
-                            self.calculateTotalCost();
-	                        self.updateProgress();
+                            self._calculateTotalCost();
+	                        self._updateProgress();
 	                    }
 	                }, 1000);
 	            }
 	        };
 
-	        this.updateProgress = function () {
+	        this._updateProgress = function () {
 	            var progress = Math.ceil((this.secondsSinceStart() / (this.maximumDuration() * 60)) * 100);
 	            var barElem = $("#bar");
 	            var progressClass = "success";
@@ -190,12 +185,12 @@
 	            cache.barElem.addClass("bar-" + progressClass);
 	        };
 
-	        this.cleanProgress = function () {            
+	        this._cleanProgress = function () {            
 	            cache.barElem.attr("style", "width: 0%");
 	            cache.barElem.removeClass("bar-success bar-warning bar-danger");
 	        };
 
-            this.calculateTotalCost = function () {
+            this._calculateTotalCost = function () {
 			    var costs = parseInt(self.costs());
 			    var saleryCosts = (self.secondsSinceStart() * (self.averageSalary() / 3600)) * self.numberOfPersons();
 			    var totalCost = Math.round(saleryCosts + costs);
@@ -208,7 +203,7 @@
 			    startIntervalId = undefined;
 
 			    this.isStarted(false);
-			    this.cleanProgress();
+			    this._cleanProgress();
 			    this.totalCost(0);
 			    this.secondsSinceStart(0);
 			    this.actionText("Start");
