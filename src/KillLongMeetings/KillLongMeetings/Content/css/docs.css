@@ -1,8 +1,18 @@
-﻿/* Body and structure
+﻿/* Add additional stylesheets below
+-------------------------------------------------- */
+/*
+  Bootstrap's documentation styles
+  Special styles for presenting Bootstrap's documentation and examples
+*/
+
+
+/* Body and structure
 -------------------------------------------------- */
 body {
   position: relative;
   padding-top: 80px;
+/*  background-color: #fff;
+  background-image: url(../img/grid-18px-masked.png);*/
   background-repeat: repeat-x;
   background-position: 0 40px;
 }
@@ -185,7 +195,6 @@ body .one .bsa_it_p {
 }
 
 
-
 /* Responsive Docs
 -------------------------------------------------- */
 @media (max-width: 480px) {
@@ -311,24 +320,17 @@ body .one .bsa_it_p {
   }
 }
 
+body 
+{
+    font-family: "News Cycle","Arial Narrow Bold",sans-serif !important;
+}
+
 .count {
+  color: #000;
   font-size: 81px;
   font-weight: bold;
   letter-spacing: -1px;
   line-height: 1;
   text-align: center;
   margin-bottom: 15px;
-}
-
-.bs-docs-social {
-  padding: 15px 0;
-  text-align: center;
-  background-color: #f5f5f5;
-  border-top: 1px solid #fff;
-  border-bottom: 1px solid #ddd;
-}
-
-.brand 
-{
-    color: #000 !important;
 }
