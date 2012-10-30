@@ -161,42 +161,16 @@
 	            if (!startIntervalId) {
 	                startIntervalId = setInterval(function () {
 	                    if (self.isStarted()) {	                       
-	                        self.secondsSinceStart(self.secondsSinceStart() + 1);
-                            self._calculateTotalCost();
-	                        self._updateProgress();
+	                        self.secondsSinceStart(self.secondsSinceStart() + 1);                       
 	                    }
 	                }, 1000);
 	            }
 	        };
 
-	        this._updateProgress = function () {
-	            var progress = Math.ceil((this.secondsSinceStart() / (this.maximumDuration() * 60)) * 100);
-	            var barElem = $("#bar");
-	            var progressClass = "success";
-
-	            if (progress > 50 && progress <= 75) {
-	                progressClass = "warning";
-	            } else if (progress > 75) {
-	                progressClass = "danger";
-	            }
-
-	            cache.barElem.attr("style", "width: " + progress + "%");	            
-                cache.barElem.removeClass("bar-success bar-warning bar-danger");
-	            cache.barElem.addClass("bar-" + progressClass);
-	        };
-
-	        this._cleanProgress = function () {            
-	            cache.barElem.attr("style", "width: 0%");
-	            cache.barElem.removeClass("bar-success bar-warning bar-danger");
-	        };
-
-            this._calculateTotalCost = function () {
-			    var costs = parseInt(self.costs());
-			    var saleryCosts = (self.secondsSinceStart() * (self.averageSalary() / 3600)) * self.numberOfPersons();
-			    var totalCost = Math.round(saleryCosts + costs);
-
-			    self.totalCost(totalCost);
-			};
+	        this.secondsSinceStart.subscribe(function (val) {           
+	            self._calculateTotalCost();
+	            self._updateProgress();
+	        }, this);
 
 			this.reset = function () {
 			    clearInterval(startIntervalId);
@@ -207,6 +181,35 @@
 			    this.totalCost(0);
 			    this.secondsSinceStart(0);
 			    this.actionText("Start");
+			};
+
+			this._updateProgress = function () {
+			    var progress = Math.ceil((this.secondsSinceStart() / (this.maximumDuration() * 60)) * 100);
+			    var barElem = $("#bar");
+			    var progressClass = "success";
+
+			    if (progress > 50 && progress <= 75) {
+			        progressClass = "warning";
+			    } else if (progress > 75) {
+			        progressClass = "danger";
+			    }
+
+			    cache.barElem.attr("style", "width: " + progress + "%");
+			    cache.barElem.removeClass("bar-success bar-warning bar-danger");
+			    cache.barElem.addClass("bar-" + progressClass);
+			};
+
+			this._cleanProgress = function () {
+			    cache.barElem.attr("style", "width: 0%");
+			    cache.barElem.removeClass("bar-success bar-warning bar-danger");
+			};
+
+			this._calculateTotalCost = function () {
+			    var costs = parseInt(self.costs());
+			    var saleryCosts = (self.secondsSinceStart() * (self.averageSalary() / 3600)) * self.numberOfPersons();
+			    var totalCost = Math.round(saleryCosts + costs);
+
+			    self.totalCost(totalCost);
 			};            
                      
 	    }
