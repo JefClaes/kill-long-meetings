@@ -52,7 +52,7 @@
     <div class="row">
         <div class="span11">
             <div class="progress">
-               <div class="bar" style="width: 0%;" id="bar"></div>
+               <div class="bar" data-bind="style: { width: progress() + '%', style: progressState() + 'bar' }" id="bar"></div>
             </div>            
         </div>
         <div class="span1">
@@ -177,6 +177,17 @@
 			this.progressFormatted = ko.computed(function () {
 			    return self.progress() + "%";
 			});
+			this.progressState = ko.computed(function () {
+			    var state = "success";
+
+			    if (self.progress() > 50 && self.progress() <= 75) {
+			        state = "warning";
+			    } else if (self.progress() > 75) {
+			        state = "danger";
+			    }
+
+			    return state;
+			});
 
 	        this.start = function () {
 	            this.isStarted(!self.isStarted());
@@ -208,19 +219,7 @@
 			};
 
 			this._updateProgress = function () {
-			    this.progress(Math.ceil((this.secondsSinceStart() / (this.maximumDuration() * 60)) * 100));		               
-                                	    
-			    var progressClass = "success";
-
-			    if (this.progress() > 50 && this.progress() <= 75) {
-			        progressClass = "warning";
-			    } else if (this.progress() > 75) {
-			        progressClass = "danger";
-			    }
-
-			    cache.barElem.attr("style", "width: " + this.progress() + "%");
-			    cache.barElem.removeClass("bar-success bar-warning bar-danger");
-			    cache.barElem.addClass("bar-" + progressClass);
+			    this.progress(Math.ceil((this.secondsSinceStart() / (this.maximumDuration() * 60)) * 100));		                                              
 			};
 
 			this._cleanProgress = function () {
