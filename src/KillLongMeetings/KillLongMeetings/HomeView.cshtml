@@ -48,10 +48,13 @@
     </div>
 
     <div class="row">
-        <div class="span12">
+        <div class="span11">
             <div class="progress">
                <div class="bar" style="width: 0%;" id="bar"></div>
-            </div>
+            </div>            
+        </div>
+        <div class="span1">
+            <span data-bind="text: progressFormatted"></span>
         </div>
     </div>
 
@@ -163,7 +166,11 @@
 			    return hours + "h " + minutes + "m " + seconds + "s";
 			});
 
-	        this.actionText = ko.observable("Start");
+			this.actionText = ko.observable("Start");
+			this.progress = ko.observable(0);
+			this.progressFormatted = ko.computed(function () {
+			    return self.progress() + "%";
+			});
 
 	        this.start = function () {
 	            this.isStarted(!self.isStarted());
@@ -195,17 +202,16 @@
 			};
 
 			this._updateProgress = function () {
-			    var progress = Math.ceil((this.secondsSinceStart() / (this.maximumDuration() * 60)) * 100);
-			    var barElem = $("#bar");
+			    this.progress(Math.ceil((this.secondsSinceStart() / (this.maximumDuration() * 60)) * 100));			    
 			    var progressClass = "success";
 
-			    if (progress > 50 && progress <= 75) {
+			    if (this.progress() > 50 && this.progress() <= 75) {
 			        progressClass = "warning";
-			    } else if (progress > 75) {
+			    } else if (this.progress() > 75) {
 			        progressClass = "danger";
 			    }
 
-			    cache.barElem.attr("style", "width: " + progress + "%");
+			    cache.barElem.attr("style", "width: " + this.progress() + "%");
 			    cache.barElem.removeClass("bar-success bar-warning bar-danger");
 			    cache.barElem.addClass("bar-" + progressClass);
 			};
