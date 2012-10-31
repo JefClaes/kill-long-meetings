@@ -81,7 +81,8 @@
 			        <input type="text" class="input-small enableTooltip" id="averageSalary" 
                         data-bind="value: averageSalary" 
                         data-title="This wildly depends on where you live, which field you're in, contractor or not, etc.. A WolframAlpha search can quickly give you an idea."
-                        data-placement="right">			                                    
+                        data-placement="right"
+                        maxlength="5">			                                    
 		        </div>
             </div>
           
@@ -91,7 +92,8 @@
 			        <input type="text" class="input-small enableTooltip" id="numberOfPersons" 
                         data-bind="value: numberOfPersons" 
                         data-title="" 
-                        data-placement="right">			                                
+                        data-placement="right"
+                        maxlength="4">			                                
 		        </div>
 		    </div>
           
@@ -101,7 +103,8 @@
 			        <input type="text" class="input-small enableTooltip" id="costs" 
                         data-bind="value: costs" 
                         data-title="Fixed costs: renting a meeting room, sandwiches, coffee.." 
-                        data-placement="right">			                                 
+                        data-placement="right"
+                        maxlength="5">			                                 
 		        </div>
 		    </div>  
             
@@ -111,7 +114,8 @@
 			        <input type="text" class="input-small enableTooltip" id="maxDuration" 
                         data-bind="value: maximumDuration" 
                         data-title="In reality, the average meeting takes more than one hour. Insane right? 30 minutes should be plenty of time." 
-                        data-placement="right">			                                 
+                        data-placement="right"
+                        maxlength="4">			                                 
 		        </div>
 		    </div>        
          
@@ -202,7 +206,8 @@
 			};
 
 			this._updateProgress = function () {
-			    this.progress(Math.ceil((this.secondsSinceStart() / (this.maximumDuration() * 60)) * 100));			    
+			    this.progress(Math.ceil((this.secondsSinceStart() / (this.maximumDuration() * 60)) * 100));		               
+                                	    
 			    var progressClass = "success";
 
 			    if (this.progress() > 50 && this.progress() <= 75) {
