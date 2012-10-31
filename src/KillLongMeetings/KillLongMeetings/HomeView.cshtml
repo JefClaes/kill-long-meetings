@@ -52,7 +52,7 @@
     <div class="row">
         <div class="span11">
             <div class="progress">
-               <div class="bar" data-bind="style: { width: progress() + '%', style: progressState() + 'bar' }" id="bar"></div>
+               <div class="bar" data-bind="style: { width: progress() + '%' }" id="bar"></div>
             </div>            
         </div>
         <div class="span1">
@@ -184,10 +184,14 @@
 			        state = "warning";
 			    } else if (self.progress() > 75) {
 			        state = "danger";
-			    }
+			    }			    
 
 			    return state;
 			});
+			this.progressState.subscribe(function (val) {
+			    cache.barElem.removeClass = "bar-success bar-warning bar-danger";
+			    cache.barElem.addClass("bar-" + val);
+			}, this);
 
 	        this.start = function () {
 	            this.isStarted(!self.isStarted());
