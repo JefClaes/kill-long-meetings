@@ -43,6 +43,9 @@
     <Reference Include="Nancy.ViewEngines.Razor">
       <HintPath>..\packages\Nancy.Viewengines.Razor.0.12.1\lib\net40\Nancy.ViewEngines.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="Nancy.ViewEngines.Razor.BuildProviders, Version=0.12.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nancy.Viewengines.Razor.0.12.1\BuildProviders\Nancy.ViewEngines.Razor.BuildProviders.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
