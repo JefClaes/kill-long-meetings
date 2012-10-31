@@ -334,3 +334,11 @@ body
   text-align: center;
   margin-bottom: 15px;
 }
+
+.tooltip {
+    font-size: 13px !important;
+}
+
+body {
+    font-size: 15px !important;
+}
