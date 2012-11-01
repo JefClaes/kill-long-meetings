@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -11,21 +10,29 @@
 	<!--[if lt IE 9]>
 	  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
+    	
+    
+<link href="Content/style.css" type="text/css" rel="stylesheet"/>
 
-	<link href="Content/css/bootstrap.css" rel="stylesheet">	
-    <link href="Content/css/bootstrap-responsive.css" rel="stylesheet">
-	<link href="Content/css/docs.css" rel="stylesheet">
   </head>
 
   <body>     
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
 	        <div class="container">	   
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
 	            <a class="brand" href="../">Kill long meetings</a>	            
                 <div class="nav-collapse collapse">
                     <ul class="nav">
                       <li>
-                        <a href="http://twitter.com/JefClaes">By @JefClaes </a>
+                        <a href="http://twitter.com/JefClaes">@JefClaes </a>
+                      </li>
+                      <li>
+                        <a href="http://twitter.com/cgeers">@cgeers </a>
                       </li>
                       <li>
                         <a href="http://github.com/JefClaes/KillLongMeetings">GitHub </a>
@@ -133,24 +140,19 @@
         </div>      		          		                            
 
 	    </fieldset>
-	</form>           
-  
-            
+	</form>                        
 
     </div><!-- /container -->
 	
-	<script src="Content/scripts/jquery.min.js" type="text/javascript"></script>
-	<script src="Content/scripts/bootstrap.min.js" type="text/javascript"></script>
-    <script src="Content/scripts/knockout-2.1.0.js" type="text/javascript"></script>
+	
+<script src="Content/script.js" type="text/javascript"></script>
+
 	<script type="text/javascript">
     
 	    function ViewModel() {
 	        var self = this;
 
 	        var startIntervalId = undefined;
-            var cache = {
-                barElem : $("#bar") 
-            };
 
 	        this.isStarted = ko.observable(false);
 
@@ -158,11 +160,6 @@
 	        this.numberOfPersons = ko.observable(7);
 	        this.costs = ko.observable(10);
 	        this.maximumDuration = ko.observable(30);
-			
-	        this.totalCost = ko.observable(0);
-			this.totalCostFormatted = ko.computed(function () {
-			    return self.totalCost() + "$";
-			});
 	        
 			this.secondsSinceStart = ko.observable(0);
 			this.secondsSinceStartFormatted = ko.computed(function () {
@@ -172,9 +169,21 @@
 
 			    return hours + "h " + minutes + "m " + seconds + "s";
 			});
+            
+			this.totalCost = ko.computed(function () {
+			    var costs = parseInt(self.costs());
+			    var saleryCosts = (self.secondsSinceStart() * (self.averageSalary() / 3600)) * self.numberOfPersons();
 
+			    return Math.round(saleryCosts + costs);
+			});
+			this.totalCostFormatted = ko.computed(function () {
+			    return self.totalCost() + "$";
+			});
+	        
 			this.actionText = ko.observable("Start");
-			this.progress = ko.observable(0);
+			this.progress = ko.computed(function () {
+			    return Math.ceil((self.secondsSinceStart() / (self.maximumDuration() * 60)) * 100);		  
+			});
 			this.progressFormatted = ko.computed(function () {
 			    return self.progress() + "%";
 			});
@@ -190,8 +199,10 @@
 			    return state;
 			});
 			this.progressState.subscribe(function (val) {
-			    cache.barElem.removeClass = "bar-success bar-warning bar-danger";
-			    cache.barElem.addClass("bar-" + val);
+			    var barElem = $("#bar");
+
+			    barElem.removeClass("bar-success").removeClass("bar-warning").removeClass("bar-danger");
+			    barElem.addClass("bar-" + val);
 			}, this);
 
 	        this.start = function () {
@@ -207,39 +218,14 @@
 	            }
 	        };
 
-	        this.secondsSinceStart.subscribe(function (val) {           
-	            self._calculateTotalCost();
-	            self._updateProgress();
-	        }, this);
-
 			this.reset = function () {
 			    clearInterval(startIntervalId);
 			    startIntervalId = undefined;
 
 			    this.isStarted(false);
-			    this._cleanProgress();
-			    this.totalCost(0);
 			    this.secondsSinceStart(0);
 			    this.actionText("Start");
 			};
-
-			this._updateProgress = function () {
-			    this.progress(Math.ceil((this.secondsSinceStart() / (this.maximumDuration() * 60)) * 100));		                                              
-			};
-
-			this._cleanProgress = function () {
-			    cache.barElem.attr("style", "width: 0%");
-			    cache.barElem.removeClass("bar-success bar-warning bar-danger");
-			};
-
-			this._calculateTotalCost = function () {
-			    var costs = parseInt(self.costs());
-			    var saleryCosts = (self.secondsSinceStart() * (self.averageSalary() / 3600)) * self.numberOfPersons();
-			    var totalCost = Math.round(saleryCosts + costs);
-
-			    self.totalCost(totalCost);
-			};            
-                     
 	    }
 
 	    $(function () {
