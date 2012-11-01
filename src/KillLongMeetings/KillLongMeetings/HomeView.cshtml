@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using Cassette.Nancy
+
+@{
+    Bundles.Reference("Content/css");
+    Bundles.Reference("Content/scripts");
+}
+
+<!DOCTYPE html>
 <html lang="en">
   <head>
 	<meta charset="utf-8">
@@ -10,10 +17,8 @@
 	<!--[if lt IE 9]>
 	  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
-
-	<link href="Content/css/bootstrap.css" rel="stylesheet">	
-    <link href="Content/css/bootstrap-responsive.css" rel="stylesheet">
-	<link href="Content/css/docs.css" rel="stylesheet">
+    	
+    @Bundles.RenderStylesheets()
   </head>
 
   <body>     
@@ -140,15 +145,11 @@
         </div>      		          		                            
 
 	    </fieldset>
-	</form>           
-  
-            
+	</form>                        
 
     </div><!-- /container -->
 	
-	<script src="Content/scripts/jquery.min.js" type="text/javascript"></script>
-	<script src="Content/scripts/bootstrap.min.js" type="text/javascript"></script>
-    <script src="Content/scripts/knockout-2.1.0.js" type="text/javascript"></script>
+	@Bundles.RenderScripts()
 	<script type="text/javascript">
     
 	    function ViewModel() {

@@ -1,2 +1,3 @@
-MeetingCostCounter
+Kill long meetings
 ==================
+
