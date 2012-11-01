@@ -182,8 +182,9 @@
 			this.totalCostFormatted = ko.computed(function () {
 			    return self.totalCost() + "$";
 			});
-	        
+
 			this.actionText = ko.observable("Start");
+	        
 			this.progress = ko.computed(function () {
 			    return Math.ceil((self.secondsSinceStart() / (self.maximumDuration() * 60)) * 100);		  
 			});
