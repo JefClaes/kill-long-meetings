@@ -156,9 +156,6 @@
 	        var self = this;
 
 	        var startIntervalId = undefined;
-            var cache = {
-                barElem : $("#bar") 
-            };
 
 	        this.isStarted = ko.observable(false);
 
@@ -166,11 +163,6 @@
 	        this.numberOfPersons = ko.observable(7);
 	        this.costs = ko.observable(10);
 	        this.maximumDuration = ko.observable(30);
-			
-	        this.totalCost = ko.observable(0);
-			this.totalCostFormatted = ko.computed(function () {
-			    return self.totalCost() + "$";
-			});
 	        
 			this.secondsSinceStart = ko.observable(0);
 			this.secondsSinceStartFormatted = ko.computed(function () {
@@ -180,9 +172,21 @@
 
 			    return hours + "h " + minutes + "m " + seconds + "s";
 			});
+            
+			this.totalCost = ko.computed(function () {
+			    var costs = parseInt(self.costs());
+			    var saleryCosts = (self.secondsSinceStart() * (self.averageSalary() / 3600)) * self.numberOfPersons();
 
+			    return Math.round(saleryCosts + costs);
+			});
+			this.totalCostFormatted = ko.computed(function () {
+			    return self.totalCost() + "$";
+			});
+	        
 			this.actionText = ko.observable("Start");
-			this.progress = ko.observable(0);
+			this.progress = ko.computed(function () {
+			    return Math.ceil((self.secondsSinceStart() / (self.maximumDuration() * 60)) * 100);		  
+			});
 			this.progressFormatted = ko.computed(function () {
 			    return self.progress() + "%";
 			});
@@ -198,8 +202,10 @@
 			    return state;
 			});
 			this.progressState.subscribe(function (val) {
-			    cache.barElem.removeClass = "bar-success bar-warning bar-danger";
-			    cache.barElem.addClass("bar-" + val);
+			    var barElem = $("#bar");
+
+			    barElem.removeClass("bar-success").removeClass("bar-warning").removeClass("bar-danger");
+			    barElem.addClass("bar-" + val);
 			}, this);
 
 	        this.start = function () {
@@ -215,39 +221,14 @@
 	            }
 	        };
 
-	        this.secondsSinceStart.subscribe(function (val) {           
-	            self._calculateTotalCost();
-	            self._updateProgress();
-	        }, this);
-
 			this.reset = function () {
 			    clearInterval(startIntervalId);
 			    startIntervalId = undefined;
 
 			    this.isStarted(false);
-			    this._cleanProgress();
-			    this.totalCost(0);
 			    this.secondsSinceStart(0);
 			    this.actionText("Start");
 			};
-
-			this._updateProgress = function () {
-			    this.progress(Math.ceil((this.secondsSinceStart() / (this.maximumDuration() * 60)) * 100));		                                              
-			};
-
-			this._cleanProgress = function () {
-			    cache.barElem.attr("style", "width: 0%");
-			    cache.barElem.removeClass("bar-success bar-warning bar-danger");
-			};
-
-			this._calculateTotalCost = function () {
-			    var costs = parseInt(self.costs());
-			    var saleryCosts = (self.secondsSinceStart() * (self.averageSalary() / 3600)) * self.numberOfPersons();
-			    var totalCost = Math.round(saleryCosts + costs);
-
-			    self.totalCost(totalCost);
-			};            
-                     
 	    }
 
 	    $(function () {
