@@ -175,9 +175,9 @@
             
 			this.totalCost = ko.computed(function () {
 			    var costs = parseInt(self.costs());
-			    var saleryCosts = (self.secondsSinceStart() * (self.averageSalary() / 3600)) * self.numberOfPersons();
+			    var salaryCosts = (self.secondsSinceStart() * (self.averageSalary() / 3600)) * self.numberOfPersons();
 
-			    return Math.round(saleryCosts + costs);
+			    return Math.round(salaryCosts + costs);
 			});
 
 			this.totalCostFormatted = ko.computed(function () {
