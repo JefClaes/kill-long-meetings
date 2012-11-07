@@ -64,9 +64,8 @@
 
     <div class="row">
         <div class="span11">
-            <div class="progress">
-               <div class="bar" data-bind="style: { width: progress() + '%' }" id="bar"></div>
-            </div>            
+            <div id="progressbar">
+            </div>           
         </div>
         <div class="span1">
             <span data-bind="text: progressFormatted"></span>
@@ -163,6 +162,7 @@
 	        this.numberOfPersons = ko.observable(7);
 	        this.costs = ko.observable(10);
 	        this.maximumDuration = ko.observable(30);
+	        this.percentCompleted = ko.observable(0);
 	        
 			this.secondsSinceStart = ko.observable(0);
 			this.secondsSinceStartFormatted = ko.computed(function () {
@@ -179,39 +179,26 @@
 
 			    return Math.round(saleryCosts + costs);
 			});
+
 			this.totalCostFormatted = ko.computed(function () {
 			    return self.totalCost() + "$";
 			});
 
 			this.actionText = ko.observable("Start");
 	        
-			this.progress = ko.computed(function () {
-			    return Math.ceil((self.secondsSinceStart() / (self.maximumDuration() * 60)) * 100);		  
-			});
 			this.progressFormatted = ko.computed(function () {
-			    return self.progress() + "%";
+			    return self.percentCompleted() + "%";
 			});
-			this.progressState = ko.computed(function () {
-			    var state = "success";
-
-			    if (self.progress() > 50 && self.progress() <= 75) {
-			        state = "warning";
-			    } else if (self.progress() > 75) {
-			        state = "danger";
-			    }			    
-
-			    return state;
-			});
-			this.progressState.subscribe(function (val) {
-			    var barElem = $("#bar");
-
-			    barElem.removeClass("bar-success").removeClass("bar-warning").removeClass("bar-danger");
-			    barElem.addClass("bar-" + val);
-			}, this);
 
 	        this.start = function () {
 	            this.isStarted(!self.isStarted());
 	            this.actionText(this.isStarted() ? "Pause" : "Continue");
+
+	            $('#progressbar').progressbar('setMaximum', this.maximumDuration() * 60);
+	            $('#progressbar').progressbar('start');
+	            $("#progressbar").on("progressChanged", function (event) {
+	                self.percentCompleted(event.percent);
+	            });
 
 	            if (!startIntervalId) {
 	                startIntervalId = setInterval(function () {
@@ -222,7 +209,9 @@
 	            }
 	        };
 
-			this.reset = function () {
+	        this.reset = function () {
+	            $('#progressbar').progressbar('reset');
+
 			    clearInterval(startIntervalId);
 			    startIntervalId = undefined;
 
@@ -235,8 +224,15 @@
 	    $(function () {
 	        $(".enableTooltip").tooltip();
 
+	        $('#progressbar').progressbar({
+	            warningMarker: 50,
+	            dangerMarker: 75,
+	            interval: 1000,
+	            step: 1
+	        });
+
 	        var model = new ViewModel();
-	        ko.applyBindings(model);	        
+	        ko.applyBindings(model);
 	    });
 
 	</script>
