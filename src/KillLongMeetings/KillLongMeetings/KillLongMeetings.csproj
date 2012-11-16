@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\bootstrap-responsive.css" />
+    <Content Include="Content\css\bootstrap-spinedit.css" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bundle.txt" />
     <Content Include="Content\css\docs.css" />
