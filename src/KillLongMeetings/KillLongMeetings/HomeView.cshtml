@@ -72,17 +72,6 @@
         </div>
     </div>
 
-    <!--
-    <header class="jumbotron subhead" id="overview">
-      <div class="row">
-	    <div class="span6">
-	      <h1>MeetingCostCounter</h1>
-	      <p class="lead">A preview of changes in this swatch.</p>
-	    </div>	  
-      </div>     
-    </header>
-    -->
-        
 	<form class="form-horizontal well">
 	    <fieldset>       
         
@@ -90,7 +79,7 @@
         <div class="span10">
             
 		    <div class="control-group">
-		        <label class="control-label" for="input01">Average salary ($/hour)</label>
+		        <label class="control-label" for="averageSalary">Average salary ($/hour)</label>
 		        <div class="controls">
 			        <input type="text" class="input-small enableTooltip" id="averageSalary" 
                         data-bind="value: averageSalary" 
@@ -101,7 +90,7 @@
             </div>
           
             <div class="control-group">
-                <label class="control-label" for="input01">Number of persons</label>
+                <label class="control-label" for="numberOfPersons">Number of persons</label>
 		        <div class="controls">
 			        <input type="text" class="input-small enableTooltip" id="numberOfPersons" 
                         data-bind="value: numberOfPersons" 
@@ -112,7 +101,7 @@
 		    </div>
           
             <div class="control-group">
-                <label class="control-label" for="input01">Costs ($)</label>
+                <label class="control-label" for="costs">Costs ($)</label>
 		        <div class="controls">
 			        <input type="text" class="input-small enableTooltip" id="costs" 
                         data-bind="value: costs" 
@@ -123,7 +112,7 @@
 		    </div>  
             
             <div class="control-group">
-                <label class="control-label" for="input01">Max duration (minutes)</label>
+                <label class="control-label" for="maxDuration">Max duration (minutes)</label>
 		        <div class="controls">
 			        <input type="text" class="input-small enableTooltip" id="maxDuration" 
                         data-bind="value: maximumDuration" 
@@ -195,15 +184,16 @@
 	            this.actionText(this.isStarted() ? "Pause" : "Continue");
 
 	            $('#progressbar').progressbar('setMaximum', this.maximumDuration() * 60);
-	            $('#progressbar').progressbar('start');
-	            $("#progressbar").on("progressChanged", function (event) {
+	            
+	            $("#progressbar").on("positionChanged", function (event) {
 	                self.percentCompleted(event.percent);
 	            });
 
 	            if (!startIntervalId) {
 	                startIntervalId = setInterval(function () {
 	                    if (self.isStarted()) {	                       
-	                        self.secondsSinceStart(self.secondsSinceStart() + 1);                       
+	                        self.secondsSinceStart(self.secondsSinceStart() + 1);
+	                        $('#progressbar').progressbar('stepIt');
 	                    }
 	                }, 1000);
 	            }
@@ -230,6 +220,11 @@
 	            interval: 1000,
 	            step: 1
 	        });
+
+	        $('#averageSalary').spinedit({ value: 50, maximum: 1000 });
+	        $('#numberOfPersons').spinedit({ value: 7, maximum: 100 });
+	        $('#costs').spinedit({ value: 10, maximum: 1000 });
+	        $('#maxDuration').spinedit({ value: 30, maximum: 1000 });
 
 	        var model = new ViewModel();
 	        ko.applyBindings(model);

@@ -2,39 +2,29 @@
 
 	var ProgressBar = function (element, options) {
 		this.element = $(element);
-		this.progress = 0;
-		this.intervalId = undefined;
-		this.isRunning = false;
+		this.position = 0;
+		this.percent = 0;
 
 		var hasOptions = typeof options == 'object';
 
-		this.warningMarker = $.fn.progressbar.defaults.warningMarker;
-		if (hasOptions && typeof options.warningMarker == 'number') {
-			this.warningMarker = options.warningMarker;
-		}
-
 		this.dangerMarker = $.fn.progressbar.defaults.dangerMarker;
 		if (hasOptions && typeof options.dangerMarker == 'number') {
-			this.dangerMarker = options.dangerMarker;
-		}
-		
-		if (this.warningMarker > this.dangerMarker) {
-			this.warningMarker = this.dangerMarker;
+			this.setDangerMarker(options.dangerMarker);
 		}
 
-		this.interval = $.fn.progressbar.defaults.interval;
-		if (hasOptions && typeof options.interval == 'number') {
-			this.interval = options.interval;
+		this.warningMarker = $.fn.progressbar.defaults.warningMarker;
+		if (hasOptions && typeof options.warningMarker == 'number') {
+			this.setWarningMarker(options.warningMarker);
 		}
 
 		this.maximum = $.fn.progressbar.defaults.maximum;
 		if (hasOptions && typeof options.maximum == 'number') {
-			this.maximum = options.maximum;
+			this.setMaximum(options.maximum);
 		}
 
 		this.step = $.fn.progressbar.defaults.step;
 		if (hasOptions && typeof options.step == 'number') {
-			this.step = options.step;
+			this.setStep(options.step);
 		}
 
 		this.element.html($(DRPGlobal.template));
@@ -43,80 +33,107 @@
 	ProgressBar.prototype = {
 		constructor: ProgressBar,
 
-		start: function () {
-			if (this.isRunning) return;
-			this.isRunning = true;
-
-			var self = this;
-			this.intervalId = setInterval(
-				function () {
-					self.progress += self.step;
-					self._setProgress();
-					if (self.progress >= self.maximum) {
-						self.progress = 0;
-						window.clearInterval(self.intervalId);
-						self.intervalId = undefined;
-					}
-				}, this.interval);
+		stepIt: function () {
+			if (this.position < this.maximum)
+				this.position += this.step;
+			
+			this.setPosition(this.position);
 		},
 
-		reset: function () {
-			if (!this.isRunning) return;
-			this.isRunning = false;
+		setWarningMarker: function (marker) {
+			marker = parseInt(marker);
 
-			window.clearInterval(this.intervalId);
-			this.intervalId = undefined;
-			this.progress = 0;
-			this.element.find('.bar-success').css('width', '0%');
-			this.element.find('.bar-warning').css('width', '0%');
-			this.element.find('.bar-danger').css('width', '0%');
+			if (marker > this.dangerMarker) {
+				this.warningMarker = this.dangerMarker;
+				return;
+			}
+
+			this.warningMarker = marker;
+		},
+
+		setDangerMarker: function (marker) {
+			this.dangerMarker = parseInt(marker);
 		},
 
 		setMaximum: function (maximum) {
-		    this.maximum = maximum;
+			this.maximum = parseInt(maximum);
 		},
 
-		_setProgress: function () {
-		    var percent = Math.ceil((this.progress / this.maximum) * 100);
+		setStep: function (step) {
+			step = parseInt(step);
+			if (step <= 0)
+				step = 1;
+			
+			this.step = parseInt(step);
+		},
 
-		    this.element.trigger({
-		        type: "progressChanged",
-		        percent: percent
-		    });
+		setPosition: function (position) {
+			position = parseInt(position);
+			if (position < 0)
+				position = 0;
+			if (position > this.maximum)
+				position = this.maximum;
 
-			if (percent <= this.warningMarker) {
-				this.element.find('.bar-success').css('width', percent + "%");
+			this.position = position;
+			this.percent = Math.ceil((this.position / this.maximum) * 100);
+			this._triggerPositionChanged();
+
+			if (this.percent <= this.warningMarker) {
+				this.element.find('.bar-success').css('width', this.percent + "%");
+				this.element.find('.bar-warning').css('width', "0%");
+				this.element.find('.bar-danger').css('width', "0%");
 				return;
 			}
-			if (percent > this.warningMarker && percent <= this.dangerMarker) {
-				this.element.find('.bar-warning').css('width', (percent - this.warningMarker) + "%");
+
+			this.element.find('.bar-success').css('width', this.warningMarker + "%");
+			if (this.percent > this.warningMarker && this.percent <= this.dangerMarker) {
+				this.element.find('.bar-warning').css('width', (this.percent - this.warningMarker) + "%");
+				this.element.find('.bar-danger').css('width', "0%");
 				return;
 			}
-			this.element.find('.bar-danger').css('width', (percent - this.dangerMarker) + "%");
+
+			this.element.find('.bar-warning').css('width', (this.dangerMarker - this.warningMarker) + "%");
+			this.element.find('.bar-danger').css('width', (this.percent - this.dangerMarker) + "%");
+		},
+
+		reset: function () {
+			this.position = 0;
+			this.percent = 0;
+			this._triggerPositionChanged();
+			this.element.find('.bar-success').css('width', "0%");
+			this.element.find('.bar-warning').css('width', "0%");
+			this.element.find('.bar-danger').css('width', "0%");
+		},
+
+		_triggerPositionChanged: function () {
+			this.element.trigger({
+				type: "positionChanged",
+				position: this.position,
+				percent: this.percent
+			});
 		}
 	};
 
 	$.fn.progressbar = function (option) {
-	    var args = Array.apply(null, arguments);
-	    args.shift();
-	    return this.each(function () {
-	        var $this = $(this),
+		var args = Array.apply(null, arguments);
+		args.shift();
+		return this.each(function () {
+			var $this = $(this),
 				data = $this.data('progressbar'),
 				options = typeof option == 'object' && option;
 
-	        if (!data) {
-	            $this.data('progressbar', new ProgressBar(this, $.extend({}, $.fn.progressbar().defaults, options)));
-	        }
-	        if (typeof option == 'string' && typeof data[option] == 'function') {
-	            data[option].apply(data, args);
-	        }
-	    });
-	}
+			if (!data) {
+				$this.data('progressbar', new ProgressBar(this, $.extend({}, $.fn.progressbar().defaults, options)));
+			}
+			if (typeof option == 'string' && typeof data[option] == 'function') {
+				data[option].apply(data, args);
+			}
+		});
+	};
 
 	$.fn.progressbar.defaults = {
 		warningMarker: 50,
 		dangerMarker: 90,
-		interval: 1000,
 		maximum: 100,
 		step: 1
 	};

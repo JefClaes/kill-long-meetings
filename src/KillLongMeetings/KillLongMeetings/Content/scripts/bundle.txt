@@ -2,3 +2,4 @@ jquery.min.js
 bootstrap.js
 knockout-2.1.0.js
 bootstrap-progressbar.js
+bootstrap-spinedit.js

@@ -1,3 +1,4 @@
 ﻿bootstrap.css
 bootstrap-responsive.css
 docs.css
+bootstrap-spinedit.css
