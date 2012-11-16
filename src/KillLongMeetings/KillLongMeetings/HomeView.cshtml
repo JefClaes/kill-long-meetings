@@ -73,68 +73,47 @@
     </div>
 
 	<form class="form-horizontal well">
-	    <fieldset>       
-        
-        <div class="row">
-        <div class="span10">
-            
-		    <div class="control-group">
-		        <label class="control-label" for="averageSalary">Average salary ($/hour)</label>
-		        <div class="controls">
-			        <input type="text" class="input-small enableTooltip" id="averageSalary" 
+		<div class="control-group">
+		    <label class="control-label" for="averageSalary">Average salary ($/hour)</label>
+		    <div class="controls">
+                <input type="text" class="enableTooltip" id="averageSalary" 
                         data-bind="value: averageSalary" 
                         data-title="This wildly depends on where you live, which field you're in, contractor or not, etc.. A WolframAlpha search can give you an idea quickly."
-                        data-placement="right"
-                        maxlength="5">			                                    
-		        </div>
-            </div>
-          
-            <div class="control-group">
-                <label class="control-label" for="numberOfPersons">Number of persons</label>
-		        <div class="controls">
-			        <input type="text" class="input-small enableTooltip" id="numberOfPersons" 
-                        data-bind="value: numberOfPersons" 
-                        data-title="" 
-                        data-placement="right"
-                        maxlength="4">			                                
-		        </div>
+                        data-placement="right" />
 		    </div>
+        </div>
           
-            <div class="control-group">
-                <label class="control-label" for="costs">Costs ($)</label>
-		        <div class="controls">
-			        <input type="text" class="input-small enableTooltip" id="costs" 
+        <div class="control-group">
+            <label class="control-label" for="numberOfPersons">Number of persons</label>
+		    <div class="controls">
+                <input type="text" id="numberOfPersons" data-bind="value: numberOfPersons" />
+		    </div>
+		</div>
+          
+        <div class="control-group">
+            <label class="control-label" for="costs">Costs ($)</label>
+		    <div class="controls">
+                <input type="text" class="enableTooltip" id="costs" 
                         data-bind="value: costs" 
                         data-title="Fixed costs: renting a meeting room, sandwiches, coffee.." 
-                        data-placement="right"
-                        maxlength="5">			                                 
-		        </div>
-		    </div>  
+                        data-placement="right" />
+		    </div>
+		</div>  
             
-            <div class="control-group">
-                <label class="control-label" for="maxDuration">Max duration (minutes)</label>
-		        <div class="controls">
-			        <input type="text" class="input-small enableTooltip" id="maxDuration" 
+        <div class="control-group">
+            <label class="control-label" for="maxDuration">Max duration (minutes)</label>
+		    <div class="controls">
+                <input type="text" class="enableTooltip" id="maxDuration" 
                         data-bind="value: maximumDuration" 
                         data-title="In reality, the average meeting takes more than one hour. Insane right? 30 minutes should be plenty of time." 
-                        data-placement="right"
-                        maxlength="4">			                                 
-		        </div>
-		    </div>        
+                        data-placement="right" />
+		    </div>
+		</div>        
          
-         </div>
-         </div>            
-          
-        <div class="row">
-		    <div class="span10">
-		        <button type="button" class="btn btn-primary" data-bind="click: start, text: actionText">Start</button>			
-                <button type="button" class="btn btn-primary" data-bind="click: reset">Reset</button>			
-            </div>
-        </div>      		          		                            
-
-	    </fieldset>
-	</form>                        
-
+		<button type="button" class="btn btn-primary" data-bind="click: start, text: actionText">Start</button>			
+        <button type="button" class="btn btn-primary" data-bind="click: reset">Reset</button>			
+    </form>        
+        
     </div><!-- /container -->
 	
 	@Bundles.RenderScripts()
