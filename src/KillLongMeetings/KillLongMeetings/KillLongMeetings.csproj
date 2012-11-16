@@ -97,6 +97,7 @@
     <Content Include="Content\img\glyphicons-halflings-white.png" />
     <Content Include="Content\img\glyphicons-halflings.png" />
     <Content Include="Content\scripts\bootstrap-progressbar.js" />
+    <Content Include="Content\scripts\bootstrap-spinedit.js" />
     <Content Include="Content\scripts\bootstrap.js" />
     <Content Include="Content\scripts\bundle.txt" />
     <Content Include="Content\scripts\jquery.min.js" />
