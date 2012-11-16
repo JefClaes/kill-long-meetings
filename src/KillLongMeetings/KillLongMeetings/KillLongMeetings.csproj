@@ -101,6 +101,7 @@
     <Content Include="Content\scripts\bootstrap.js" />
     <Content Include="Content\scripts\bundle.txt" />
     <Content Include="Content\scripts\jquery.min.js" />
+    <Content Include="Content\scripts\knockout-2.1.0.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
