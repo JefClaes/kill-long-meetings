@@ -1,6 +1,6 @@
 Kill long meetings
 ==================
-A web application coded for fun that measures times and costs of your meeting.
+A web application coded for fun that measures time and costs of your meeting.
 
 Technology stack
 ----------------
