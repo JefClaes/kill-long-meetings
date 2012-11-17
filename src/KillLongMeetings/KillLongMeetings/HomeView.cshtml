@@ -1,8 +1,8 @@
 ﻿@using Cassette.Nancy
 
 @{
-    Bundles.Reference("Content/css");
-    Bundles.Reference("Content/scripts");
+	Bundles.Reference("Content/css");
+	Bundles.Reference("Content/scripts");
 }
 
 <!DOCTYPE html>
@@ -17,215 +17,228 @@
 	<!--[if lt IE 9]>
 	  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
-    	
-    @Bundles.RenderStylesheets()
+		
+	@Bundles.RenderStylesheets()
   </head>
 
   <body>  
-    <div id="fb-root"></div>
-    <script>    
-        (function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/nl_NL/all.js#xfbml=1&appId=54149895062";
-            fjs.parentNode.insertBefore(js, fjs);
-        } (document, 'script', 'facebook-jssdk'));
-    </script>
-     
-    <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-	        <div class="container">	   
-                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-	            <a class="brand" href="../">Kill long meetings</a>	            
-                <div class="nav-collapse collapse">
-                    <ul class="nav">
-                      <li>
-                        <a href="http://twitter.com/JefClaes">@@JefClaes </a>
-                      </li>
-                      <li>
-                        <a href="http://twitter.com/cgeers">@@cgeers </a>
-                      </li>
-                      <li>
-                        <a href="http://github.com/JefClaes/KillLongMeetings">GitHub </a>
-                      </li>                                           
-                    </ul>
-                </div>
-	        </div>
-        </div>
-    </div>  
+	<div id="fb-root"></div>
+	<script>    
+		(function (d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/nl_NL/all.js#xfbml=1&appId=54149895062";
+			fjs.parentNode.insertBefore(js, fjs);
+		} (document, 'script', 'facebook-jssdk'));
+	</script>
+	 
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">	   
+				<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="brand" href="../">Kill long meetings</a>	            
+				<div class="nav-collapse collapse">
+					<ul class="nav">
+					  <li>
+						<a href="http://twitter.com/JefClaes">@@JefClaes </a>
+					  </li>
+					  <li>
+						<a href="http://twitter.com/cgeers">@@cgeers </a>
+					  </li>
+					  <li>
+						<a href="http://github.com/JefClaes/KillLongMeetings">GitHub </a>
+					  </li>                                           
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>  
 
 	<div class="container">
 
-    <div class="row">
-        <div class="span12 count">        
-            <span data-bind="text: totalCostFormatted"></span>            
-        </div>               
-    </div>
+	<div class="row">
+		<div class="span12 count">        
+			<span data-bind="text: totalCostFormatted"></span>            
+		</div>               
+	</div>
 
-     <div class="row">
-        <div class="span12 count">        
-            <span data-bind="text: secondsSinceStartFormatted"></span>
-        </div>               
-    </div>    
+	 <div class="row">
+		<div class="span12 count">        
+			<span data-bind="text: secondsSinceStartFormatted"></span>
+		</div>               
+	</div>    
 
-    <div class="row">
-        <div class="span11">
-            <div id="progressbar">
-            </div>           
-        </div>
-        <div class="span1">
-            <span data-bind="text: progressFormatted"></span>
-        </div>
-    </div>
+	<div class="row">
+		<div class="span11">
+			<div id="progressbar">
+			</div>           
+		</div>
+		<div class="span1">
+			<span data-bind="text: progressFormatted"></span>
+		</div>
+	</div>
 
 	<form class="form-horizontal well">
 		<div class="control-group">
-		    <label class="control-label" for="averageSalary">Average salary ($/hour)</label>
-		    <div class="controls">
-                <input type="text" class="enableTooltip" id="averageSalary" 
-                        data-bind="value: averageSalary" 
-                        data-title="This wildly depends on where you live, which field you're in, contractor or not, etc.. A WolframAlpha search can give you an idea quickly."
-                        data-placement="right" />
-		    </div>
-        </div>
-          
-        <div class="control-group">
-            <label class="control-label" for="numberOfPersons">Number of persons</label>
-		    <div class="controls">
-                <input type="text" id="numberOfPersons" data-bind="value: numberOfPersons" />
-		    </div>
+			<label class="control-label" for="averageSalary">Average salary ($/hour)</label>
+			<div class="controls">
+				<input type="text" class="enableTooltip" id="averageSalary" 
+						data-bind="value: averageSalary" 
+						data-title="This wildly depends on where you live, which field you're in, contractor or not, etc.. A WolframAlpha search can give you an idea quickly."
+						data-placement="right" />
+			</div>
 		</div>
-          
-        <div class="control-group">
-            <label class="control-label" for="costs">Costs ($)</label>
-		    <div class="controls">
-                <input type="text" class="enableTooltip" id="costs" 
-                        data-bind="value: costs" 
-                        data-title="Fixed costs: renting a meeting room, sandwiches, coffee.." 
-                        data-placement="right" />
-		    </div>
+		  
+		<div class="control-group">
+			<label class="control-label" for="numberOfPersons">Number of persons</label>
+			<div class="controls">
+				<input type="text" id="numberOfPersons" data-bind="value: numberOfPersons" />
+			</div>
+		</div>
+		  
+		<div class="control-group">
+			<label class="control-label" for="costs">Costs ($)</label>
+			<div class="controls">
+				<input type="text" class="enableTooltip" id="costs" 
+						data-bind="value: costs" 
+						data-title="Fixed costs: renting a meeting room, sandwiches, coffee.." 
+						data-placement="right" />
+			</div>
 		</div>  
-            
-        <div class="control-group">
-            <label class="control-label" for="maxDuration">Max duration (minutes)</label>
-		    <div class="controls">
-                <input type="text" class="enableTooltip" id="maxDuration" 
-                        data-bind="value: maximumDuration" 
-                        data-title="In reality, the average meeting takes more than one hour. Insane right? 30 minutes should be plenty of time." 
-                        data-placement="right" />
-		    </div>
+			
+		<div class="control-group">
+			<label class="control-label" for="maxDuration">Max duration (minutes)</label>
+			<div class="controls">
+				<input type="text" class="enableTooltip" id="maxDuration" 
+						data-bind="value: maximumDuration" 
+						data-title="In reality, the average meeting takes more than one hour. Insane right? 30 minutes should be plenty of time." 
+						data-placement="right" />
+			</div>
 		</div>        
-         
+		 
 		<button type="button" class="btn btn-primary" data-bind="click: start, text: actionText">Start</button>			
-        <button type="button" class="btn btn-primary" data-bind="click: reset">Reset</button>			                       
-    </form>        
-        
-    <div class="row">
-        <div class="span1 share">        
-            <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://killlongmeetings.com" data-text="Kill long meetings! /via @@jefclaes @@cgeers">Tweet</a>
-            <script>                !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } } (document, "script", "twitter-wjs");</script>            
-            <div class="fb-like" data-href="http://killlongmeetings.com" data-send="false" data-layout="button_count" data-width="450" data-show-faces="true"></div>            
-        </div>
-    </div>        
+		<button type="button" class="btn btn-primary" data-bind="click: reset">Reset</button>			                       
+	</form>        
+		
+	<div class="row">
+		<div class="span1 share">        
+			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://killlongmeetings.com" data-text="Kill long meetings! /via @@jefclaes @@cgeers">Tweet</a>
+			<script>                !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } } (document, "script", "twitter-wjs");</script>            
+			<div class="fb-like" data-href="http://killlongmeetings.com" data-send="false" data-layout="button_count" data-width="450" data-show-faces="true"></div>            
+		</div>
+	</div>        
 
-    </div><!-- /container -->
+	</div><!-- /container -->
 	
 	@Bundles.RenderScripts()
 	<script type="text/javascript">
-    
-	    function ViewModel() {
-	        var self = this;
 
-	        var startIntervalId = undefined;
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-11136588-4']);
+		_gaq.push(['_trackPageview']);
 
-	        this.isStarted = ko.observable(false);
+		(function () {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
 
-	        this.averageSalary = ko.observable(50);
-	        this.numberOfPersons = ko.observable(7);
-	        this.costs = ko.observable(10);
-	        this.maximumDuration = ko.observable(30);
-	        this.percentCompleted = ko.observable(0);
-	        
+	</script>
+	<script type="text/javascript">
+	
+		function ViewModel() {
+			var self = this;
+
+			var startIntervalId = undefined;
+
+			this.isStarted = ko.observable(false);
+
+			this.averageSalary = ko.observable(50);
+			this.numberOfPersons = ko.observable(7);
+			this.costs = ko.observable(10);
+			this.maximumDuration = ko.observable(30);
+			this.percentCompleted = ko.observable(0);
+			
 			this.secondsSinceStart = ko.observable(0);
 			this.secondsSinceStartFormatted = ko.computed(function () {
-			    var hours = parseInt(self.secondsSinceStart() / 3600) % 24;
-			    var minutes = parseInt(self.secondsSinceStart() / 60) % 60;
-			    var seconds = self.secondsSinceStart() % 60;
+				var hours = parseInt(self.secondsSinceStart() / 3600) % 24;
+				var minutes = parseInt(self.secondsSinceStart() / 60) % 60;
+				var seconds = self.secondsSinceStart() % 60;
 
-			    return hours + "h " + minutes + "m " + seconds + "s";
+				return hours + "h " + minutes + "m " + seconds + "s";
 			});
-            
+			
 			this.totalCost = ko.computed(function () {
-			    var costs = parseInt(self.costs());
-			    var salaryCosts = (self.secondsSinceStart() * (self.averageSalary() / 3600)) * self.numberOfPersons();
+				var costs = parseInt(self.costs());
+				var salaryCosts = (self.secondsSinceStart() * (self.averageSalary() / 3600)) * self.numberOfPersons();
 
-			    return Math.round(salaryCosts + costs);
+				return Math.round(salaryCosts + costs);
 			});
 
 			this.totalCostFormatted = ko.computed(function () {
-			    return self.totalCost() + "$";
+				return self.totalCost() + "$";
 			});
 
 			this.actionText = ko.observable("Start");
-	        
+			
 			this.progressFormatted = ko.computed(function () {
-			    return self.percentCompleted() + "%";
+				return self.percentCompleted() + "%";
 			});
 
-	        this.start = function () {
-	            this.isStarted(!self.isStarted());
-	            this.actionText(this.isStarted() ? "Pause" : "Continue");
-                	            
-	            $("#progressbar").on("positionChanged", function (event) {
-	                self.percentCompleted(event.percent);
-	            });
+			this.start = function () {
+				this.isStarted(!self.isStarted());
+				this.actionText(this.isStarted() ? "Pause" : "Continue");
+								
+				$("#progressbar").on("positionChanged", function (event) {
+					self.percentCompleted(event.percent);
+				});
 
-	            if (!startIntervalId) {
-	                startIntervalId = setInterval(function () {
-	                    if (self.isStarted()) {
-	                        $('#progressbar').progressbar('setMaximum', self.maximumDuration() * 60);
-	                        self.secondsSinceStart(self.secondsSinceStart() + 1);
-	                        $('#progressbar').progressbar('setPosition', self.secondsSinceStart());
-	                    }
-	                }, 1000);
-	            }
-	        };
-
-	        this.reset = function () {
-	            $('#progressbar').progressbar('reset');
-
-			    clearInterval(startIntervalId);
-			    startIntervalId = undefined;
-
-			    this.isStarted(false);
-			    this.secondsSinceStart(0);
-			    this.actionText("Start");
+				if (!startIntervalId) {
+					startIntervalId = setInterval(function () {
+						if (self.isStarted()) {
+							$('#progressbar').progressbar('setMaximum', self.maximumDuration() * 60);
+							self.secondsSinceStart(self.secondsSinceStart() + 1);
+							$('#progressbar').progressbar('setPosition', self.secondsSinceStart());
+						}
+					}, 1000);
+				}
 			};
-	    }
 
-	    $(function () {
-	        $(".enableTooltip").tooltip();
+			this.reset = function () {
+				$('#progressbar').progressbar('reset');
 
-	        $('#progressbar').progressbar({
-	            warningMarker: 50,
-	            dangerMarker: 75,
-	            interval: 1000,
-	            step: 1
-	        });
+				clearInterval(startIntervalId);
+				startIntervalId = undefined;
 
-	        $('#averageSalary').spinedit({ value: 50, minimum: 1, maximum: 1000 });
-	        $('#numberOfPersons').spinedit({ value: 7, minimum: 1, maximum: 100 });
-	        $('#costs').spinedit({ value: 10, minimum: 0, maximum: 1000 });
-	        $('#maxDuration').spinedit({ value: 30, minimum: 1, maximum: 1000 });	        
+				this.isStarted(false);
+				this.secondsSinceStart(0);
+				this.actionText("Start");
+			};
+		}
 
-	        var model = new ViewModel();
-	        ko.applyBindings(model);
-	    });
+		$(function () {
+			$(".enableTooltip").tooltip();
+
+			$('#progressbar').progressbar({
+				warningMarker: 50,
+				dangerMarker: 75,
+				interval: 1000,
+				step: 1
+			});
+
+			$('#averageSalary').spinedit({ value: 50, minimum: 1, maximum: 1000 });
+			$('#numberOfPersons').spinedit({ value: 7, minimum: 1, maximum: 100 });
+			$('#costs').spinedit({ value: 10, minimum: 0, maximum: 1000 });
+			$('#maxDuration').spinedit({ value: 30, minimum: 1, maximum: 1000 });	        
+
+			var model = new ViewModel();
+			ko.applyBindings(model);
+		});
 
 	</script>
 
