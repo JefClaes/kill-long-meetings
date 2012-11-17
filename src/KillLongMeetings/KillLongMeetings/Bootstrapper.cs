@@ -6,7 +6,9 @@ namespace KillLongMeetings
     {
         public Bootstrapper()
         {
+#if !DEBUG
             Cassette.Nancy.CassetteNancyStartup.OptimizeOutput = true;
+#endif
         }
     }
 }
