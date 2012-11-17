@@ -163,6 +163,7 @@ $(function () {
                 type: "valueChanged",
                 value: this.value
             });
+            this.element.change();            
         }
     };
 
@@ -200,4 +201,4 @@ $(function () {
 	'<i class="icon-chevron-down"></i>' +
 	'</div>';
 
-}(window.jQuery);
+} (window.jQuery);
