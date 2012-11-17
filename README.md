@@ -10,7 +10,7 @@ Technology stack
 * jQuery
 * Knockout.js
 
-Two new OSS Bootstrap plug-ins resulted from this application (see that it wasn't totally useless..)
---------------------------------------------------------------------------------------------------
+Two new OSS Bootstrap plug-ins that resulted from this application
+------------------------------------------------------------------
 * [Bootstrap Spin Edit](https://github.com/geersch/bootstrap-spinedit)
 * [Bootstrap Multi-Color Progressbar](https://github.com/geersch/bootstrap-progressbar)
