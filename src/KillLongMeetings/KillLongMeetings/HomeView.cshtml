@@ -21,7 +21,18 @@
     @Bundles.RenderStylesheets()
   </head>
 
-  <body>     
+  <body>  
+    <div id="fb-root"></div>
+    <script>    
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/nl_NL/all.js#xfbml=1&appId=54149895062";
+            fjs.parentNode.insertBefore(js, fjs);
+        } (document, 'script', 'facebook-jssdk'));
+    </script>
+     
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
 	        <div class="container">	   
@@ -41,12 +52,12 @@
                       </li>
                       <li>
                         <a href="http://github.com/JefClaes/KillLongMeetings">GitHub </a>
-                      </li>                       
+                      </li>                                           
                     </ul>
                 </div>
 	        </div>
         </div>
-    </div>
+    </div>  
 
 	<div class="container">
 
@@ -111,9 +122,17 @@
 		</div>        
          
 		<button type="button" class="btn btn-primary" data-bind="click: start, text: actionText">Start</button>			
-        <button type="button" class="btn btn-primary" data-bind="click: reset">Reset</button>			
+        <button type="button" class="btn btn-primary" data-bind="click: reset">Reset</button>			                       
     </form>        
         
+    <div class="row">
+        <div class="span1 share">        
+            <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://killlongmeetings.com" data-text="Kill long meetings! /via @@jefclaes @@cgeers">Tweet</a>
+            <script>                !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } } (document, "script", "twitter-wjs");</script>            
+            <div class="fb-like" data-href="http://killlongmeetings.com" data-send="false" data-layout="button_count" data-width="450" data-show-faces="true"></div>            
+        </div>
+    </div>        
+
     </div><!-- /container -->
 	
 	@Bundles.RenderScripts()

@@ -342,3 +342,8 @@ body
 body {
     font-size: 15px !important;
 }
+
+.share {
+    margin: 0 auto !important;
+    float: none;
+}
