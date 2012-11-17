@@ -161,16 +161,15 @@
 	        this.start = function () {
 	            this.isStarted(!self.isStarted());
 	            this.actionText(this.isStarted() ? "Pause" : "Continue");
-
-	            $('#progressbar').progressbar('setMaximum', this.maximumDuration() * 60);
-	            
+                	            
 	            $("#progressbar").on("positionChanged", function (event) {
 	                self.percentCompleted(event.percent);
 	            });
 
 	            if (!startIntervalId) {
 	                startIntervalId = setInterval(function () {
-	                    if (self.isStarted()) {	                       
+	                    if (self.isStarted()) {
+	                        $('#progressbar').progressbar('setMaximum', self.maximumDuration() * 60);
 	                        self.secondsSinceStart(self.secondsSinceStart() + 1);
 	                        $('#progressbar').progressbar('stepIt');
 	                    }
@@ -200,10 +199,10 @@
 	            step: 1
 	        });
 
-	        $('#averageSalary').spinedit({ value: 50, maximum: 1000 });
-	        $('#numberOfPersons').spinedit({ value: 7, maximum: 100 });
-	        $('#costs').spinedit({ value: 10, maximum: 1000 });
-	        $('#maxDuration').spinedit({ value: 30, maximum: 1000 });
+	        $('#averageSalary').spinedit({ value: 50, minimum: 1, maximum: 1000 });
+	        $('#numberOfPersons').spinedit({ value: 7, minimum: 1, maximum: 100 });
+	        $('#costs').spinedit({ value: 10, minimum: 0, maximum: 1000 });
+	        $('#maxDuration').spinedit({ value: 30, minimum: 1, maximum: 1000 });	        
 
 	        var model = new ViewModel();
 	        ko.applyBindings(model);
