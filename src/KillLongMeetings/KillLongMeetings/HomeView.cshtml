@@ -171,7 +171,7 @@
 	                    if (self.isStarted()) {
 	                        $('#progressbar').progressbar('setMaximum', self.maximumDuration() * 60);
 	                        self.secondsSinceStart(self.secondsSinceStart() + 1);
-	                        $('#progressbar').progressbar('stepIt');
+	                        $('#progressbar').progressbar('setPosition', self.secondsSinceStart());
 	                    }
 	                }, 1000);
 	            }
